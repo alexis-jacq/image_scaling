@@ -5,3 +5,6 @@ State-of-the-art image scaling, inspired by Directional Cubic Convolution Interp
 
 ![befor](build/surf.png)
 ![after](build/bigsurf.png)
+
+![befor](build/pap.jpg)
+![after](build/pap3.jpg)
