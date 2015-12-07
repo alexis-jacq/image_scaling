@@ -44,4 +44,4 @@ With DCCI :
 ![dcci](doc/cedi.png)
 
 With our algorithm :
-![our](doc/out_algo.png)
+![our](doc/our_algo.png)
