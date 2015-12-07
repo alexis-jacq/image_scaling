@@ -1,0 +1,6 @@
+build*/
+src/conv*
+src/net*
+src/*.png
+src/*.jpg
+src/cifar*/
