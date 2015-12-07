@@ -27,8 +27,21 @@ $ make
 ```
 $ ./scaling picture_name scaled_picture_name
 ```
-If you want to infinitly increase your resolution without hitting-eyes defaults you can use the 60 main clusters of colors :
+If you want to infinitly increase your resolution without hitting-eyes blur you can use the 60 main clusters of colors :
 
 ```
 $  python src/cluster.py -i picture_name -c 60
 ```
+And then scale the output clustured picuture and enjoy :)
+
+### Comparaison with DCCI 
+
+(we implemented the algorithm explained at https://en.wikipedia.org/wiki/Directional_Cubic_Convolution_Interpolation)
+
+Zoom on the spots of the butterfly...
+
+With DCCI :
+![befor](doc/cedi.jpg)
+
+With our algorithm :
+![befor](doc/out_algo.jpg)
