@@ -4,3 +4,4 @@ src/net*
 src/*.png
 src/*.jpg
 src/cifar*/
+include*/

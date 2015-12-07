@@ -1,1 +1,0 @@
-/home/alexis/src/image_scaling/build/CMakeFiles/scaling.dir
