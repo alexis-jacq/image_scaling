@@ -41,7 +41,7 @@ And then scale the output clustured picuture and enjoy :)
 Zoom on the spots of the butterfly...
 
 With DCCI :
-![befor](doc/cedi.jpg)
+![dcci](doc/cedi.png)
 
 With our algorithm :
-![befor](doc/out_algo.jpg)
+![our](doc/out_algo.png)
