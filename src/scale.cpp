@@ -30,7 +30,7 @@ Mat interpolate_rgb(Mat X){
 
     for(int i=ws-1; i<X_mirrors.rows-ws+1; i++){
         for(int j=ws-1; j<X_mirrors.cols-ws+1; j++){
-            
+
             int ii=2*(i-ws+1);
             int jj=2*(j-ws+1);
             Vec3b pixel = X_mirrors.at<Vec3b>(i,j);
@@ -43,12 +43,12 @@ Mat interpolate_rgb(Mat X){
 
     for(int i=ws-1; i<X_mirrors.rows-ws+1;i++){
         for(int j=ws-1; j<X_mirrors.cols-ws+1; j++){
-            
+
             int ii=2*(i-ws+1)+1;
             int jj=2*(j-ws+1)+1;
 
             Vec3b value;
-            
+
             for(int col=0;col<3;col++){
                 // d1 and d2 strength
                 double d1=0;
@@ -105,10 +105,10 @@ Mat interpolate_rgb(Mat X){
 
 
     copyMakeBorder(Result,R_mirrors, 4,4,4,4, BORDER_REFLECT );
-    
+
     for(int i=ws-1; i<X_mirrors.rows-ws+1;i++){
         for(int j=ws-1; j<X_mirrors.cols-ws+1; j++){
-            
+
             //left
             int ii1=2*(i-ws+1)+1;
             int jj1=2*(j-ws+1)+0;
@@ -118,7 +118,7 @@ Mat interpolate_rgb(Mat X){
 
             Vec3b value1;
             Vec3b value2;
-            
+
             //left
             for(int col=0;col<3;col++){
                 // d1 and d2 strength
@@ -268,7 +268,7 @@ int main ( int argc, char** argv )
 {
     Mat src;
     Mat last;
-   
+
     /// Load an image
     src = imread( argv[1] );
     if( !src.data )  { return -1; }
@@ -280,8 +280,8 @@ int main ( int argc, char** argv )
     imwrite(argv[2], Y);
     waitKey(0);
     /// Load webcam
-  
-    /* 
+
+    /*
     VideoCapture cap(0);
 
     namedWindow( "sum", CV_WINDOW_AUTOSIZE );
