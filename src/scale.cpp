@@ -283,14 +283,12 @@ int main ( int argc, char** argv )
 
     /*
     VideoCapture cap(0);
-
     namedWindow( "sum", CV_WINDOW_AUTOSIZE );
     while(true){
         Mat src;
         Mat grey;
         cap >> src;
         cvtColor(src, grey, CV_BGR2GRAY);
-
         Mat X = interpolate_rgb(src,3);
         imshow("sum", X);
         waitKey(30);

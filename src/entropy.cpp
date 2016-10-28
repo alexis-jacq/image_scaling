@@ -8,8 +8,8 @@
 using namespace cv;
 using namespace std;
 
-double THETA = 0.2;
-double LOOPS = 10;
+double THETA = 0.05;
+double LOOPS = 5;
 
 Mat mosaic_rgb(Mat X){
 
@@ -52,8 +52,8 @@ Mat mosaic_rgb(Mat X){
                         Vec3b pixy = X_mirrors.at<Vec3b>(i+x,j+y);
                         double dist = abs(double(pixy[col])-double(pixel[col]))/255.;
                         if (dist<THETA || x*x+y*y==0){
-                            meanval += pixy[col] * pow(1./conv.at<double>(x+1,y+1),4);
-                            count += pow(1./conv.at<double>(x+1,y+1),4);
+                            meanval += pixy[col] ;//* pow(1./conv.at<double>(x+1,y+1),4);
+                            count += 1;//pow(1./conv.at<double>(x+1,y+1),4);
                         }
                     }
                 }
