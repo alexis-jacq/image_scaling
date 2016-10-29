@@ -9,14 +9,9 @@ using namespace cv;
 using namespace std;
 
 
-double A = -1;
-double B = 10;
-double C = -1;
-double D = A+B+C;
-
 Mat interpolate_rgb(Mat X, bool ok){
 
-    int ws = 8;//window_size;
+    int ws = 4;//window_size;
     double theta=1.15;
     int gama = 5;
     int right_lim = (ws-1)/2+1;
@@ -34,13 +29,12 @@ Mat interpolate_rgb(Mat X, bool ok){
     Mat A_M1_0(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M1_0); angles_1.push_back(-1); angles_2.push_back(0);
     Mat A_0_1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_0_1); angles_1.push_back(0); angles_2.push_back(1);
     Mat A_0_M1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_0_M1); angles_1.push_back(0); angles_2.push_back(-1);
-
     Mat A_1_1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_1); angles_1.push_back(1); angles_2.push_back(1);
-    Mat A_M1_M1(X_mirrors.rows, X_mirrors.cols, CV_32FC1, float(0)); angle_maps.push_back(A_M1_M1); angles_1.push_back(-1); angles_2.push_back(-1);
     Mat A_1_M1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1,float(0)); angle_maps.push_back(A_1_M1); angles_1.push_back(1); angles_2.push_back(-1);
+    Mat A_M1_M1(X_mirrors.rows, X_mirrors.cols, CV_32FC1, float(0)); angle_maps.push_back(A_M1_M1); angles_1.push_back(-1); angles_2.push_back(-1);
     Mat A_M1_1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M1_1); angles_1.push_back(-1); angles_2.push_back(1);
     
-    Mat A_1_2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_2); angles_1.push_back(1); angles_2.push_back(2);
+    /*Mat A_1_2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_2); angles_1.push_back(1); angles_2.push_back(2);
     Mat A_1_M2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_M2); angles_1.push_back(1); angles_2.push_back(-2);
 
     Mat A_M1_2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M1_2); angles_1.push_back(-1); angles_2.push_back(2);
@@ -50,7 +44,7 @@ Mat interpolate_rgb(Mat X, bool ok){
     Mat A_2_M1(X_mirrors.rows, X_mirrors.cols,   CV_32FC1, float(0)); angle_maps.push_back(A_2_M1); angles_1.push_back(2); angles_2.push_back(-1);
 
     Mat A_M2_1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M2_1); angles_1.push_back(-2); angles_2.push_back(1);
-    Mat A_M2_M1(X_mirrors.rows, X_mirrors.cols, CV_32FC1, float(0)); angle_maps.push_back(A_M2_M1); angles_1.push_back(-2); angles_2.push_back(-1);
+    Mat A_M2_M1(X_mirrors.rows, X_mirrors.cols, CV_32FC1, float(0)); angle_maps.push_back(A_M2_M1); angles_1.push_back(-2); angles_2.push_back(-1);*/
 
     // Result:
     Mat Result(2*X.rows, 2*X.cols,  CV_8UC3, Scalar(0,0,0));
@@ -81,18 +75,14 @@ Mat interpolate_rgb(Mat X, bool ok){
                     int x1 = x*a1;
                     int x2 = x*a2;
 
-                    Vec3b pix1 = X_mirrors.at<Vec3b>(i+x1,j+x2);
-                    //Vec3b pix2 = X_mirrors.at<Vec3b>(i+2*x1,j+2*x2);
+                    Vec3b pix = X_mirrors.at<Vec3b>(i+x1,j+x2);
 
                     // friend match:
                     double d1 = 0;
                     for(int col=0;col<3;col++){
-                        d1 += abs(pow((double(pixel[col])/255.-double(pix1[col])/255.),2));
-                        //d1 += abs(pow((double(pix1[col])/255.-double(pix2[col])/255.),2));
-                        //d1 += abs(pow((double(pixel[col])/255.-double(pix2[col])/255.),2));
-
+                        d1 += abs(pow((double(pixel[col])/255.-double(pix[col])/255.),2));
                     }
-                    d1 /= 3.;
+                    d1 /= 3;
 
                     // enemy match:
                     double d2 = 0;
@@ -109,15 +99,15 @@ Mat interpolate_rgb(Mat X, bool ok){
                         Vec3b piy2 = X_mirrors.at<Vec3b>(i+y21,j+y22);
 
                         for(int col=0;col<3;col++){
-                            d2 += abs(pow((double(pix1[col])/255.-double(piy1[col])/255.),2));
-                            d2 += abs(pow((double(pix1[col])/255.-double(piy2[col])/255.),2));
+                            d2 += abs(pow((double(pix[col])/255.-double(piy1[col])/255.),2));
+                            d2 += abs(pow((double(pix[col])/255.-double(piy2[col])/255.),2));
                             d2 += abs(pow((double(piy1[col])/255.-double(piy2[col])/255.),2));
                         }
                         count += 9.; // 3 col *3
                     }
                     d2 /= count;
 
-                    score += exp(0.7*d2-10*d1);//*d2;
+                    score += exp(1*d2-10*d1);//*d2;
                 }
                 map.at<float>(i,j) = score;
 
@@ -152,49 +142,41 @@ Mat interpolate_rgb(Mat X, bool ok){
                 int a1 = angles_1[angle_indice];
                 int a2 = angles_2[angle_indice];
 
-                for(int s=1; s<5; s+=1){
-
+                for(int s=1; s<5; s++){
 
                     a1*=s;
                     a2*=s;
 
-                    if(i-2*a1>=0 && i-2*a1<X_mirrors.rows && i+2*a1>=0 && i+2*a1<X_mirrors.rows && j-2*a2>=0 && j-2*a2<X_mirrors.cols && j+2*a2>=0 && j+2*a2<X_mirrors.cols){
+                    if(ii+a1>=0 && ii+a1<Result.rows && jj+a2>=0 && jj+a2<Result.cols){
 
-                        Vec3b pixm1 = X_mirrors.at<Vec3b>(i-2*a1,j-2*a2);
-                        Vec3b pix1 = X_mirrors.at<Vec3b>(i+2*a1,j+2*a2);
+                        Vec3f value = Values.at<Vec3f>(ii+a1,jj+a2);
+                        Vec3f nb = Counts.at<Vec3f>(ii+a1,jj+a2);
+                        double angle_score = double(map.at<float>(i,j));
 
+                        double score = angle_score;
+                        double theta = exp(0.692);
+                        //double theta = 0;
 
-                        if(ii+a1>=0 && ii+a1<Result.rows && jj+a2>=0 && jj+a2<Result.cols){
+                        if(score>theta){
 
-                            Vec3f value = Values.at<Vec3f>(ii+a1,jj+a2);
-                            Vec3f nb = Counts.at<Vec3f>(ii+a1,jj+a2);
+                            double d = exp(5*score + 2.3*(exp(1)-exp(s)));
+                            //double d=0.1+(score/255.)*(score/255.);
+                            //double d=1.;
+                            // they are friends
+                            for(int col=0;col<3;col++){
 
-                            double score = double(map.at<float>(i,j));
-
-                            double theta = exp(0.692);
-
-                            if(score>theta){
-
-                                double d = exp(5*score + 2.3*(exp(1)-exp(s)));
-                                //double d=0.1+(score/255.)*(score/255.);
-                                //double d=1.;
-                                // they are friends
-                                for(int col=0;col<3;col++){
-
-                                    value[col]+=d*(A*pixm1[col] + B*pixel[col] +C*pix1[col])/D;
-                                    //value[col]+=d*pixel[col];
-                                    nb[col]+=d;
-                                }
-                                Values.at<Vec3f>(ii+a1,jj+a2)=value;
-                                Counts.at<Vec3f>(ii+a1,jj+a2)=nb;
-                                Cards.at<float>(ii+a1,jj+a2)+=1;
-
-                                /*if(ii+2*a1>=0 && ii+2*a1<Result.rows && jj+2*a2>=0 && jj+2*a2<Result.cols){
-                                    Values.at<Vec3f>(ii+2*a1,jj+2*a2)=value;
-                                    Counts.at<Vec3f>(ii+2*a1,jj+2*a2)=nb;
-                                    Cards.at<float>(ii+2*a1,jj+2*a2)+=1;
-                                }*/
+                                value[col]+=d*pixel[col];;
+                                nb[col]+=d;
                             }
+                            Values.at<Vec3f>(ii+a1,jj+a2)=value;
+                            Counts.at<Vec3f>(ii+a1,jj+a2)=nb;
+                            Cards.at<float>(ii+a1,jj+a2)+=1;
+
+                            /*if(ii+2*a1>=0 && ii+2*a1<Result.rows && jj+2*a2>=0 && jj+2*a2<Result.cols){
+                                Values.at<Vec3f>(ii+2*a1,jj+2*a2)=value;
+                                Counts.at<Vec3f>(ii+2*a1,jj+2*a2)=nb;
+                                Cards.at<float>(ii+2*a1,jj+2*a2)+=1;
+                            }*/
                         }
                     }
                 }
@@ -203,15 +185,12 @@ Mat interpolate_rgb(Mat X, bool ok){
         }
     }
 
-    cout<<"test3"<<endl;
-    
-
 
     for(int i=0; i<Result.rows; i++){
         for(int j=0; j<Result.cols; j++){
 
             Vec3f nb = Counts.at<Vec3f>(i,j);
-            float card = Cards.at<float>(i,j);
+            float card = Counts.at<float>(i,j);
 
             if(nb[0]>0){
                 Vec3f value = Values.at<Vec3f>(i,j);
@@ -235,7 +214,7 @@ Mat interpolate_rgb(Mat X, bool ok){
             float card = Cards.at<float>(i,j);
 
             //for(int col=0;col<3;col++){
-            if(card==0){
+            if(card<=0){
                 // you have no friends
                 Vec3b value;
                 vector<Vec3b> results;

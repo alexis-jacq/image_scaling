@@ -8,8 +8,8 @@
 using namespace cv;
 using namespace std;
 
-double THETA = 0.05;
-double LOOPS = 5;
+double THETA = 0.01;
+double LOOPS = 1;
 
 Mat mosaic_rgb(Mat X){
 

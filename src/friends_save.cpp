@@ -9,9 +9,9 @@ using namespace cv;
 using namespace std;
 
 
-double A = -1;
+double A = -0.5;
 double B = 10;
-double C = -1;
+double C = -0.5;
 double D = A+B+C;
 
 Mat interpolate_rgb(Mat X, bool ok){
@@ -40,7 +40,7 @@ Mat interpolate_rgb(Mat X, bool ok){
     Mat A_1_M1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1,float(0)); angle_maps.push_back(A_1_M1); angles_1.push_back(1); angles_2.push_back(-1);
     Mat A_M1_1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M1_1); angles_1.push_back(-1); angles_2.push_back(1);
     
-    Mat A_1_2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_2); angles_1.push_back(1); angles_2.push_back(2);
+    /*Mat A_1_2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_2); angles_1.push_back(1); angles_2.push_back(2);
     Mat A_1_M2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_1_M2); angles_1.push_back(1); angles_2.push_back(-2);
 
     Mat A_M1_2(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M1_2); angles_1.push_back(-1); angles_2.push_back(2);
@@ -50,7 +50,7 @@ Mat interpolate_rgb(Mat X, bool ok){
     Mat A_2_M1(X_mirrors.rows, X_mirrors.cols,   CV_32FC1, float(0)); angle_maps.push_back(A_2_M1); angles_1.push_back(2); angles_2.push_back(-1);
 
     Mat A_M2_1(X_mirrors.rows, X_mirrors.cols,  CV_32FC1, float(0)); angle_maps.push_back(A_M2_1); angles_1.push_back(-2); angles_2.push_back(1);
-    Mat A_M2_M1(X_mirrors.rows, X_mirrors.cols, CV_32FC1, float(0)); angle_maps.push_back(A_M2_M1); angles_1.push_back(-2); angles_2.push_back(-1);
+    Mat A_M2_M1(X_mirrors.rows, X_mirrors.cols, CV_32FC1, float(0)); angle_maps.push_back(A_M2_M1); angles_1.push_back(-2); angles_2.push_back(-1);*/
 
     // Result:
     Mat Result(2*X.rows, 2*X.cols,  CV_8UC3, Scalar(0,0,0));
@@ -97,7 +97,7 @@ Mat interpolate_rgb(Mat X, bool ok){
                     // enemy match:
                     double d2 = 0;
                     double count = 0;
-                    for(int y=1; y<2; y++){
+                    for(int y=1; y<3; y++){
 
                         int y11 = x1 + y*a2;
                         int y12 = x2 - y*a1;
@@ -117,7 +117,7 @@ Mat interpolate_rgb(Mat X, bool ok){
                     }
                     d2 /= count;
 
-                    score += exp(0.7*d2-10*d1);//*d2;
+                    score += exp(1*d2-10*d1);//*d2;
                 }
                 map.at<float>(i,j) = score;
 
@@ -211,7 +211,7 @@ Mat interpolate_rgb(Mat X, bool ok){
         for(int j=0; j<Result.cols; j++){
 
             Vec3f nb = Counts.at<Vec3f>(i,j);
-            float card = Cards.at<float>(i,j);
+            float card = Counts.at<float>(i,j);
 
             if(nb[0]>0){
                 Vec3f value = Values.at<Vec3f>(i,j);
@@ -235,7 +235,7 @@ Mat interpolate_rgb(Mat X, bool ok){
             float card = Cards.at<float>(i,j);
 
             //for(int col=0;col<3;col++){
-            if(card==0){
+            if(card<=0){
                 // you have no friends
                 Vec3b value;
                 vector<Vec3b> results;
