@@ -23,7 +23,7 @@ Mat interpolate_rgb(Mat X, bool ok){
     int left_lim = -(ws-1)/2;
     Mat X_mirrors;
     Mat R_mirrors;
-    cout<<"test1"<<endl;
+    //cout<<"test1"<<endl;
     copyMakeBorder(X, X_mirrors, ws-1,ws-1,ws-1,ws-1, BORDER_REFLECT );
 
     // Angle maps:
@@ -57,7 +57,7 @@ Mat interpolate_rgb(Mat X, bool ok){
     Mat Counts(2*X.rows, 2*X.cols,  CV_32FC3, Scalar(0,0,0));
     Mat Cards(2*X.rows, 2*X.cols,  CV_32FC1, float(0));
     Mat Values(2*X.rows, 2*X.cols,  CV_32FC3, Scalar(0,0,0));
-    cout<<"test12"<<endl;
+    //cout<<"test12"<<endl;
 
 
     // 1. fill angle maps
@@ -128,7 +128,7 @@ Mat interpolate_rgb(Mat X, bool ok){
         //cout<<"j"<<i<<endl;
     }
 
-    cout<<"done !!!"<<endl;
+    //cout<<"done !!!"<<endl;
 
     // 2. fill frends
     //-----------------
@@ -203,7 +203,7 @@ Mat interpolate_rgb(Mat X, bool ok){
         }
     }
 
-    cout<<"test3"<<endl;
+    //cout<<"test3"<<endl;
     
 
 
@@ -291,7 +291,7 @@ Mat interpolate_rgb(Mat X, bool ok){
         }
     }
 
-    cout<<"test2"<<endl;
+    //cout<<"test2"<<endl;
     //imshow( "agnle1", Result );
     return Result;
 }
@@ -309,8 +309,9 @@ int main ( int argc, char** argv )
     
     Mat X = interpolate_rgb(src,true);
     Mat Y = interpolate_rgb(X,true);
-    imshow("sum",Y);
+    //imshow("sum",Y);
     imwrite(argv[2], Y);
+    cout<<"done : "<<argv[2]<<endl;
     waitKey(0);
     /// Load webcam
 

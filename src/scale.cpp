@@ -274,8 +274,8 @@ int main ( int argc, char** argv )
     if( !src.data )  { return -1; }
     Mat grey;
     cvtColor(src,grey, CV_BGR2GRAY);
-    Mat Y = interpolate_rgb(src);
-    //Mat Y = interpolate_rgb(X);
+    Mat X = interpolate_rgb(src);
+    Mat Y = interpolate_rgb(X);
     imshow("sum",Y);
     imwrite(argv[2], Y);
     waitKey(0);
