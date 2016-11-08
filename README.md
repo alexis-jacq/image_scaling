@@ -1,13 +1,29 @@
-# image_scaling
-===============
+# Artistic Super Resolution Imaging Algorithms
+==============================================
 
-State-of-the-art image scaling, inspired by Directional Cubic Convolution Interpolation
+This repo is a library of state-of-the-art fast Super Resolution Imaging.
+
+
+# Artistic Angle Maps
+#---------------------
+Angle Maps Based Interpolation plus Artistic loss of information. This algorithm has particuar impressive renders with result images of Justin Johnson's fast algorithm for neural style transfer (https://github.com/jcjohnson/fast-neural-style)
+
+![befor](doc/turtle.jpg)
+![after](doc/big_turtle.jpg)
+
+# Angle Maps
+#-----------
+Angle Maps Based Interpolation
+
+![befor](doc/pap.jpg)
+![after](doc/angle_pap3.jpg)
+
+# DCCI
+#-----
+Inspired by Directional Cubic Convolution Interpolation
 
 ![befor](doc/pap.jpg)
 ![after](doc/pap3.jpg)
-
-![befor](doc/surf.png)
-![after](doc/bigsurf.png)
 
 ### Installation
 
@@ -24,24 +40,17 @@ $ make
 ```
 
 ### Usage
+
+Artistic Angle Maps:
 ```
-$ ./scaling picture_name scaled_picture_name
+$ ./artisticAM picture_name scaled_picture_name
 ```
-If you want to infinitly increase your resolution without hitting-eyes blur you can use the 60 main clusters of colors :
-
+Angle Maps:
 ```
-$  python src/cluster.py -i picture_name -c 60
+$ ./AM picture_name scaled_picture_name
 ```
-And then scale the output clustured picuture and enjoy :)
+DCCI:
+```
+$ ./DCCI picture_name scaled_picture_name
+```
 
-### Comparaison with DCCI 
-
-(we implemented the algorithm explained at https://en.wikipedia.org/wiki/Directional_Cubic_Convolution_Interpolation)
-
-Zoom on the spots of the butterfly...
-
-With DCCI :
-![dcci](doc/cedi.png)
-
-With our algorithm :
-![our](doc/our_algo.png)

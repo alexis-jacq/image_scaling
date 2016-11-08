@@ -1,26 +1,19 @@
 cmake_minimum_required(VERSION 2.8)
 
-#Déclaration du projet
 project(IMAGE_SCALING)
-
 find_package(OpenCV REQUIRED )
-
 add_definitions(-std=c++11)
 
 include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/include)
-#Déclaration de l'exécutable
-add_executable(scaling src/scale.cpp)
-add_executable(mosaic src/mosaic.cpp)
-add_executable(entropy src/entropy.cpp)
-add_executable(angleMaps src/friends.cpp)
-add_executable(angleMaps_smooth src/friends_smooth.cpp)
-add_executable(directed src/directed.cpp)
-target_link_libraries(scaling ${OpenCV_LIBS})
-target_link_libraries(entropy ${OpenCV_LIBS})
-target_link_libraries(mosaic ${OpenCV_LIBS})
-target_link_libraries(angleMaps ${OpenCV_LIBS})
-target_link_libraries(angleMaps_smooth ${OpenCV_LIBS})
-target_link_libraries(directed ${OpenCV_LIBS})
 
-install(TARGETS scaling RUNTIME DESTINATION bin)
+add_executable(DCCI src/dcci.cpp)
+add_executable(artisticAM src/artisticAM.cpp)
+add_executable(AM src/AM.cpp)
+target_link_libraries(DCCI ${OpenCV_LIBS})
+target_link_libraries(artisticAM ${OpenCV_LIBS})
+target_link_libraries(AM ${OpenCV_LIBS})
+
+install(TARGETS DCCI RUNTIME DESTINATION bin)
+install(TARGETS artisticAM RUNTIME DESTINATION bin)
+install(TARGETS AM RUNTIME DESTINATION bin)
