@@ -4,22 +4,22 @@
 This repo is a library of state-of-the-art fast Super Resolution Imaging.
 
 
-# Artistic Angle Maps
-#---------------------
-Angle Maps Based Interpolation plus Artistic loss of information. This algorithm has particuar impressive renders with result images of Justin Johnson's fast algorithm for neural style transfer (https://github.com/jcjohnson/fast-neural-style)
+## Artistic Angle Maps
+##____________________
+Angle Maps Based Interpolation plus Artistic loss of information. This algorithm has particuar impressive renders with result images of Justin Johnson's fast algorithm for neural style transfer (https://github.com/jcjohnson/fast-neural-style). This is the interpolation behind this video https://www.youtube.com/watch?v=pJ5RgsPEYgM 
 
 ![befor](doc/turtle.jpg)
 ![after](doc/big_turtle.jpg)
 
-# Angle Maps
-#-----------
+## Angle Maps
+##___________
 Angle Maps Based Interpolation
 
 ![befor](doc/pap.jpg)
 ![after](doc/angle_pap3.jpg)
 
-# DCCI
-#-----
+## DCCI
+##_____
 Inspired by Directional Cubic Convolution Interpolation
 
 ![befor](doc/pap.jpg)
