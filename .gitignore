@@ -3,5 +3,11 @@ src/conv*
 src/net*
 src/*.png
 src/*.jpg
+src/entropy.cpp
+src/cluster.py
+src/directed.cpp
+src/friends_save.cpp
+src/mosaic.cpp
+src/old_friends.cpp
 src/cifar*/
 include*/
