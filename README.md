@@ -51,5 +51,3 @@ DCCI:
 $ ./DCCI picture_name scaled_picture_name
 ```
 
-### Licence
-Free for personal or research use; for commercial use please contact me.
