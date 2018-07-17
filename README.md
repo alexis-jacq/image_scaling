@@ -1,7 +1,7 @@
 # Artistic Super Resolution Imaging Algorithms
 ==============================================
 
-This repo is a library of state-of-the-art fast Super Resolution Imaging.
+This repo is a library of fast Super Resolution Imaging.
 
 
 ## Artistic Angle Maps
